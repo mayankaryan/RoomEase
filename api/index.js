@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'https://room-ease-mhz6-m9gwwd29q-mayankaryan.vercel.app',
+    origin: '*',
 }));
 
 mongoose.connect(process.env.MONGO_URL);
