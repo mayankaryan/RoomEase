@@ -12,7 +12,7 @@ import PlacesFormPage from './pages/PlacesFormPage';
 import PlacePage from './pages/PlacePage';
 import BookingsPage from './pages/BookingsPage';
 import BookingPage from './pages/BookingPage';
-axios.defaults.baseURL = 'https://roomease.onrender.com';
+axios.defaults.baseURL = 'https://roomease-production.up.railway.app';
 axios.defaults.withCredentials = true;
 
 
