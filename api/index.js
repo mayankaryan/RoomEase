@@ -17,51 +17,9 @@ const app = express();
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'sfdfseofjoiejfoegrsfjaer';
 
-// const allowCors = fn => async (req, res) => {
-//     res.setHeader('Access-Control-Allow-Credentials', true)
-//     res.setHeader('Access-Control-Allow-Origin', '*')
-//     // another common pattern
-//     // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-//     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-//     res.setHeader(
-//       'Access-Control-Allow-Headers',
-//       'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-//     )
-//     if (req.method === 'OPTIONS') {
-//       res.status(200).end()
-//       return
-//     }
-//     return await fn(req, res)
-//   }
-  
-//   const handler = (req, res) => {
-//     const d = new Date()
-//     res.end(d.toString())
-//   }
-  
-//   module.exports = allowCors(handler)
-  
-
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
-// app.use(cors());
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header(
-//         "Access-Control-Allow-Methods",
-//         "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-//     );
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//     );
-//     next();
-// });
-// app.use(cors({
-//     credentials: true,
-//     origin: 'https://room-ease-mhz6.vercel.app/',
-// }));
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL);

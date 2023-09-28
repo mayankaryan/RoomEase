@@ -15,8 +15,8 @@ import BookingPage from './pages/BookingPage';
 axios.defaults.baseURL = 'https://roomease.onrender.com';
 axios.defaults.withCredentials = true;
 
-function App() {
 
+function App() {
   return (
     <UserContextProvider>
       <Routes>
@@ -34,8 +34,7 @@ function App() {
         </Route>
       </Routes>
     </UserContextProvider>
-
   )
 }
 
-export default App
+export default App;
