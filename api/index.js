@@ -1,3 +1,4 @@
+const PORT = process.env.PORT || 4000;
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -193,4 +194,4 @@ app.get('/bookings', async (req,res) => {
     res.json(await Booking.find({user:userData.id}).populate('place') );
 });
 
-app.listen(4000);
+app.listen(PORT);
