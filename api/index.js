@@ -21,14 +21,17 @@ const jwtSecret = 'sfdfseofjoiejfoegrsfjaer';
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
-app.use(cors());
+app.use(cors({
+    origin: "https://room-ease.vercel.app",
+    credentials: true
+}));
 
 mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
-            if(err) throw err;
+            if (err) throw err;
             resolve(userData);
         });
     });
@@ -156,7 +159,7 @@ app.put('/places', async (req, res) => {
         checkIn, checkOut, maxGuests, price,
     } = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-        if(err) throw err;
+        if (err) throw err;
         const placeDoc = await Place.findById(id);
         if (userData.id === placeDoc.owner.toString()) {
             placeDoc.set({
@@ -170,18 +173,18 @@ app.put('/places', async (req, res) => {
     });
 });
 
-app.get('/places', async (req,res) => {
+app.get('/places', async (req, res) => {
     res.json(await Place.find());
 });
 
-app.post('/bookings', async (req,res) => {
+app.post('/bookings', async (req, res) => {
     const userData = await getUserDataFromReq(req);
     const {
-        place,checkIn,checkOut,numberOfGuests,name,contact,price
+        place, checkIn, checkOut, numberOfGuests, name, contact, price
     } = req.body;
     Booking.create({
-        place,checkIn,checkOut,numberOfGuests,name,contact,price,
-        user:userData.id,
+        place, checkIn, checkOut, numberOfGuests, name, contact, price,
+        user: userData.id,
     }).then((doc) => {
         res.json(doc);
     }).catch((err) => {
@@ -189,9 +192,9 @@ app.post('/bookings', async (req,res) => {
     });
 })
 
-app.get('/bookings', async (req,res) => {
+app.get('/bookings', async (req, res) => {
     const userData = await getUserDataFromReq(req);
-    res.json(await Booking.find({user:userData.id}).populate('place') );
+    res.json(await Booking.find({ user: userData.id }).populate('place'));
 });
 
 app.listen(PORT);
