@@ -20,15 +20,13 @@ const jwtSecret = 'sfdfseofjoiejfoegrsfjaer';
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+const corsOptions = {
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}
 app.use('/uploads', express.static(__dirname + '/uploads'));
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    next();
-});
-app.use(cors());
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGO_URL);
 
