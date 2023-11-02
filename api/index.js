@@ -199,4 +199,6 @@ app.get('/bookings', async (req, res) => {
     res.json(await Booking.find({ user: userData.id }).populate('place'));
 });
 
-app.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Sever listening on PORT ${PORT}.`);
+});
