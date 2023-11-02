@@ -28,6 +28,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     next();
 });
+app.use(cors());
+
 mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
